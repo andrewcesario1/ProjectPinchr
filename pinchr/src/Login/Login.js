@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css'; 
 
-const Login = () => {
+function  Login() {
   return (
     <div>
       <div className="header">
