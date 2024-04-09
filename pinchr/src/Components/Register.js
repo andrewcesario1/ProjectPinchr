@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import '../index.css';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../firebase"
+import { useNavigate } from "react-router-dom"
 
 function  Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
   const signUp = (e) => {
     e.preventDefault();
     console.log(auth); // Check if auth is defined
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {
+      navigate('/signin')
       console.log(userCredentials)
     }).catch((error) => {
       console.log(error)

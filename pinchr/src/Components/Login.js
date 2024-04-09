@@ -13,12 +13,14 @@ function  Login() {
     e.preventDefault();
     console.log(auth); // Check if auth is defined
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredentials) => {
-      console.log(userCredentials)
-    }).catch((error) => {
-      console.log(error)
-    })
-    navigate('/')
+      .then((userCredentials) => {
+        console.log(userCredentials);
+        // Navigate only after successful sign-in
+        navigate('/');
+      }).catch((error) => {
+        console.log(error);
+        // Optionally handle errors (e.g., wrong password, no internet) here
+      });
   }
   return (
     <div className ="body">
