@@ -3,6 +3,9 @@ import '../index.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from "react-router-dom"
+import userIcon from '../Assets/userIcon.png'
+import pwIcon from '../Assets/passwordIcon.png'
+import emailIcon from '../Assets/emailIcon.png'
 
 function  Login() {
   const [email, setEmail] = useState('');
@@ -29,25 +32,27 @@ function  Login() {
       </div>
       <div className="Login">
         <form onSubmit={signIn}>
-          <h2>Log in to your Account</h2>
-          <label htmlFor="Email">Email:</label>
-          <input 
-            id="Email"
-            type="email" 
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required />
-          <br /><br />
-          <label htmlFor="pass">Password:</label>
-          <input
-            id="pass"
-            type="password" 
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required />
-          <br /><br />
+          <h2 id = "registerHeader">Log In</h2>
+          <div class="inputField">
+            <img src={emailIcon} alt="user" />
+            <input 
+              id="Email"
+              type="email" 
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required />
+          </div>
+          <div class="inputField">
+          <img src={pwIcon} alt="user" />
+            <input
+              id="pass"
+              type="password" 
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required />
+          </div>
           <button id="loginbtn" type="submit">Login</button>
           <br /><br />
           <a href="/register" id="register">Don't have an account? Register here.</a>
