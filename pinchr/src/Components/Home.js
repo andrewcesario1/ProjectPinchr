@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, serverTimestamp, query, where, onSnapshot } from "firebase/firestore";
 
@@ -34,12 +34,6 @@ function Home() {
         }
     }, [navigate]);
 
-    const userSignOut = () => {
-        signOut(auth).then(() => {
-            navigate('/signin');
-        }).catch(error => console.log(error));
-    };
-
     const addExpense = async () => {
         if (!authUser) return; // Exit if there's no user signed in
 
@@ -61,9 +55,6 @@ function Home() {
         <div className="page">
             <div className="header">Pinchr Expense Manager</div>
             <div className="body">
-                <h1>Profile</h1>
-                <p>Email: {authUser?.email}</p>
-                <button onClick={userSignOut}>Sign Out</button>
                 <p>Enter an expense below</p>
                 <label> $<input 
                     id="expenseInput"

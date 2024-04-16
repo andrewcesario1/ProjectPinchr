@@ -93,3 +93,23 @@ img {
   margin-bottom: 10px;
 }
 
+.navbar {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+.navbar h1 {
+  color: rgb(35, 35, 255);
+}
+.navbar .links {
+  margin-left: auto;
+}
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.navbar a:hover {
+  color: rgb(35, 35, 255);
+}

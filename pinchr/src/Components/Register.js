@@ -3,6 +3,8 @@ import '../index.css';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../firebase"
 import { useNavigate } from "react-router-dom"
+import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import userIcon from '../Assets/userIcon.png'
 import pwIcon from '../Assets/passwordIcon.png'
 import emailIcon from '../Assets/emailIcon.png'
@@ -15,15 +17,28 @@ function  Register() {
 
   const signUp = (e) => {
     e.preventDefault();
-    console.log(auth); // Check if auth is defined
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredentials) => {
-      navigate('/signin')
-      console.log(userCredentials)
-    }).catch((error) => {
-      console.log(error)
-    })
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log(user);  // Check the user object
+        // Store the user's name in Firestore
+        const userRef = doc(db, "users", user.uid);  // Points to firestore DB collection "Users", unique for UID
+        setDoc(userRef, { // creates an entry in the collection
+          name: name,  // Store the name
+          email: email,  // Store the email
+        }, { merge: true })  // Use merge to not overwrite existing fields eg. an entry already exists with just an email stored
+          .then(() => {
+            console.log("User data stored in Firestore");
+            navigate('/signin');  // Navigate after storing the data
+          })
+          .catch((error) => {
+            console.error("Error storing user data in Firestore", error);
+          });
+      }).catch((error) => {
+        console.log(error);
+      });
   }
+
   return (
     <div className ="body">
       <div className="header">
