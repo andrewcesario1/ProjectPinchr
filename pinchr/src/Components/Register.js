@@ -13,31 +13,36 @@ function  Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate()
 
   const signUp = (e) => {
     e.preventDefault();
+    setError('');  // Clear any existing errors
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log(user);  // Check the user object
-        // Store the user's name in Firestore
+        // Store the user's name and email in Firestore
         const userRef = doc(db, "users", user.uid);  // Points to firestore DB collection "Users", unique for UID
-        setDoc(userRef, { // creates an entry in the collection
-          name: name,  // Store the name
-          email: email,  // Store the email
-        }, { merge: true })  // Use merge to not overwrite existing fields eg. an entry already exists with just an email stored
-          .then(() => {
-            console.log("User data stored in Firestore");
-            navigate('/signin');  // Navigate after storing the data
-          })
-          .catch((error) => {
-            console.error("Error storing user data in Firestore", error);
-          });
-      }).catch((error) => {
-        console.log(error);
+        return setDoc(userRef, { // creates an entry in the collection
+          name: name,
+          email: email,
+        }, { merge: true });  // Use merge to not overwrite existing fields eg. an entry already exists with just an email stored
+      })
+      .then(() => {
+        navigate('/');  // Navigate after successful registration and data storage
+      })
+      .catch((error) => {
+        // Handle different error types
+        if (error.code === 'auth/email-already-in-use') {
+          setError('This email address is already in use.');
+        } else if (error.code === 'auth/weak-password') {
+          setError('The password is too weak. It must be at least 6 characters.');
+        } else {
+          setError('Failed to register: ' + error.message);
+        }
       });
-  }
+  };
 
   return (
     <div className ="body">
@@ -79,6 +84,7 @@ function  Register() {
           </div>
           <button id="loginbtn" type="submit">Sign up</button>
           <br /><br />
+          {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
           <a href="/signin" id="register">Have an account? Sign in here.</a>
           </form>
       </div>

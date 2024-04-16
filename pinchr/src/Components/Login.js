@@ -7,23 +7,33 @@ import userIcon from '../Assets/userIcon.png'
 import pwIcon from '../Assets/passwordIcon.png'
 import emailIcon from '../Assets/emailIcon.png'
 
+
 function  Login() {
+  // State hooks for handling user inputs
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate()
 
   const signIn = (e) => {
     e.preventDefault();
-    console.log(auth); // Check if auth is defined
+    setError(''); // Clear any previous errors
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        console.log(userCredentials);
-        // Navigate only after successful sign-in
-        navigate('/');
-      }).catch((error) => {
-        console.log(error);
-        // Optionally handle errors (e.g., wrong password, no internet) here
-      });
+    .then(() => {
+      // Successful sign in, navigate to home or another appropriate route
+      navigate('/')
+    }).catch((error) => {
+      // Handle different error types specifically or display a general error message
+      if (error.code === 'auth/user-not-found') {
+        setError('No user found with this email.');
+      } else if (error.code === 'auth/wrong-password') {
+        setError('Incorrect password, please try again.');
+      } else if (error.code === 'auth/user-disabled') {
+        setError('This account has been disabled.');
+      } else {
+        setError('Failed to sign in: ' + error.message);
+      }
+    })
   }
   return (
     <div className ="body">
@@ -55,6 +65,7 @@ function  Login() {
           </div>
           <button id="loginbtn" type="submit">Login</button>
           <br /><br />
+          {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
           <a href="/register" id="register">Don't have an account? Register here.</a>
           </form>
       </div>
