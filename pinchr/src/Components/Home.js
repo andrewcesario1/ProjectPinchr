@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, serverTimestamp, query, where, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import Navbar from './Navbar';
 import "../Styles/home.css";
 
@@ -10,14 +10,13 @@ function Home() {
     const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
     const [expense, setExpense] = useState('');
-    const [expenses, setExpenses] = useState([]); // State to hold expenses
+    const [expenses, setExpenses] = useState([]);
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user) {
                 setAuthUser(user);
-                // Fetch expenses when user is set
-                const q = query(collection(db, "expenses"), where("uid", "==", user.uid));
+                const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
                 const unsubscribe = onSnapshot(q, (querySnapshot) => {
                     const expensesArray = querySnapshot.docs.map(doc => ({
                         id: doc.id,
@@ -25,7 +24,7 @@ function Home() {
                     }));
                     setExpenses(expensesArray);
                 });
-                return unsubscribe; // Unsubscribe from the listener when the component unmounts
+                return unsubscribe;
             } else {
                 navigate('/signin');
             }
@@ -37,16 +36,14 @@ function Home() {
     }, [navigate]);
 
     const addExpense = async () => {
-        if (!authUser) return; // Exit if there's no user signed in
-
+        if (!authUser) return;
         try {
             await addDoc(collection(db, "expenses"), {
                 uid: authUser.uid,
                 amount: parseFloat(expense),
                 createdAt: serverTimestamp()
             });
-            // No need to manually update the state here; the onSnapshot listener will do it automatically
-            setExpense(''); // Reset the input field after adding
+            setExpense(''); 
         } catch (error) {
             console.error("Error adding expense: ", error);
             alert("Failed to add expense. Try again.");

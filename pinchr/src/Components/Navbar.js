@@ -9,11 +9,11 @@ function Navbar() {
         <header class="navHeader">
             <nav className="navbar">
                 <ul>
-                    <li><a href="/" class="navHome">Pinchr</a></li>
-                    <li><a href="/profile" class="nav-link">Profile</a></li>
-                    <li><a href="/profile" class="nav-link">Placeholder</a></li>
-                    <li><a href="/profile" class="nav-link">Placeholder</a></li>
-                    <li><a href="/profile" class="nav-link">Placeholder</a></li>      
+                    <li><Link className="navHome" to="/">Home</Link></li>
+                    <li><Link className="nav-link" to="/profile">Profile</Link></li>
+                    <li><Link className="nav-link" to="/profile">Placeholder</Link></li>   
+                    <li><Link className="nav-link" to="/profile">Placeholder</Link></li>
+                    <li><Link className="nav-link" to="/profile">Placeholder</Link></li>   
                 </ul>
                 <ul class="signout">                   
                     <li><a href="/login" class="nav-signout">Sign Out</a></li>
