@@ -65,7 +65,7 @@ function  Login() {
           </div>
           <button id="loginbtn" type="submit">Login</button>
           <br /><br />
-          {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+          {error && <div class= "loginError"><p style={{ color: 'red', marginTop: '10px' }}>{error}</p></div>}
           <a href="/register" id="register">Don't have an account? Register here.</a>
           </form>
       </div>

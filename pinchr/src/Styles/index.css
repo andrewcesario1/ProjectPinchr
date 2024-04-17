@@ -115,3 +115,18 @@ img {
 .navbar a:hover {
   color: rgb(35, 35, 255);
 }
+
+.loginError {
+  height: 30px;
+  width: 500px;
+  color: red;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-top: 1px;
+  padding-bottom: 5px;
+  margin-left: 40px;
+  border-radius: 10px;
+  border: 2px rgb(84, 169, 240) solid;
+  background-color: rgb(184, 227, 255);
+}

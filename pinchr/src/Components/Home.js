@@ -3,6 +3,8 @@ import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, serverTimestamp, query, where, onSnapshot } from "firebase/firestore";
+import Navbar from './Navbar';
+import "../Styles/home.css";
 
 function Home() {
     const [authUser, setAuthUser] = useState(null);
@@ -53,6 +55,7 @@ function Home() {
 
     return (
         <div className="page">
+            <Navbar />
             <div className="header">Pinchr Expense Manager</div>
             <div className="body">
                 <p>Enter an expense below</p>
