@@ -53,27 +53,30 @@ function Home() {
     return (
         <div className="page">
             <Navbar />
-            <div className="header">Pinchr Expense Manager</div>
-            <div className="body">
+            <div className="homeHeader">Pinchr Expense Manager</div>
+            <div className="homeBody">
                 <p>Enter an expense below</p>
-                <label> $<input 
-                    id="expenseInput"
-                    type="number" 
-                    placeholder="Enter an expense"
-                    value={expense}
-                    onChange={(e) => setExpense(e.target.value)}
-                    required />
-                </label>
-                <br /><br />
-                <button onClick={addExpense}>Add Expense</button>
-                <div>
-                    <h2>Expenses</h2>
-                    <ul>
-                        {expenses.map(expense => (
-                            <li key={expense.id}>${expense.amount}</li>
-                        ))}
-                    </ul>
+                <div class="expenseInput">
+                    <label> $<input 
+                        id="expenseInput"
+                        type="number" 
+                        placeholder="Enter an expense"
+                        value={expense}
+                        onChange={(e) => setExpense(e.target.value)}
+                        required />
+                    </label>
                 </div>
+                <button onClick={addExpense}>Add Expense</button>
+            </div>
+            <div class="expenseDiv">
+                <h2>Expenses</h2>
+                <table>
+                    
+                    {expenses.map(expense => (
+                        <tr><td class="amount" key={expense.id}>${expense.amount}</td></tr>
+                    ))}
+                    
+                </table>
             </div>
         </div>
     );    

@@ -36,7 +36,7 @@ img {
   padding-bottom: 30px;
   font-size: larger;
   text-align: center;
-  background-color: white;
+  background-color: rgb(22, 21, 21);
   border-radius: 5px;
 
   
@@ -47,6 +47,8 @@ img {
   font-family: 'Kumar One', serif;
   font-weight: 700;
   font-size: 30px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 #loginbtn {

@@ -17,7 +17,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(209, 194, 173);
+    background-color: bisque;
 }
 
 
@@ -25,12 +25,12 @@ a {
     font-size: 25px;
     color: rgb(35, 35, 255);
     font-weight: bolder;
-    border-right : 3px solid rgb(184, 227, 255);
+    border-right : 3px solid dodgerblue;
     
 }
 
 .nav-link {
-    border-right: 2px rgb(184, 227, 255) solid;
+    border-right: 2px dodgerblue solid;
     padding-left: 50px;
     padding-right: 50px;
     text-align: center;
@@ -43,11 +43,12 @@ a {
     background-color:rgb(184, 227, 255);
 }
 .nav-signout {
+    color: rgb(35, 35, 255);
     float: right;
     padding-left: 500;
-    background-color: grey;
+    background-color:rgb(184, 227, 255);
     border-radius: 5px;
 }
 .nav-signout:hover {
-    background-color:rgb(184, 227, 255);
+    background-color: grey;
 }

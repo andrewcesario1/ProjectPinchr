@@ -16,7 +16,7 @@ function Navbar() {
                     <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>   
                 </ul>
                 <ul class="signout">                   
-                    <li className="navl"><a href="/login" class="nav-signout">Sign Out</a></li>
+                    <li className="navl"><a href="/signin" class="nav-signout">Sign Out</a></li>
                 </ul>
             </nav>
         </header>
