@@ -3,6 +3,12 @@ import { auth, db } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, serverTimestamp, query, where, onSnapshot } from "firebase/firestore";
+import BudgetAmount from './BudgetAmount';
+import RemainingAmount from './RemainingAmount';
+import AmountSpent from './AmountSpent';
+import ExpenseList from './ExpenseList';
+import AddExpense from './AddExpense';
+import { AppProvider } from '../Context/AppContext';
 
 function Home() {
     const [authUser, setAuthUser] = useState(null);
@@ -58,9 +64,31 @@ function Home() {
     };
 
     return (
-        <div className="page">
-            <div className="header">Pinchr Expense Manager</div>
-            <div className="body">
+        <AppProvider>
+        <div className="container">
+            <h1 className="mt-3">Pinchr Expense Manager</h1>
+            <div className="row mt-3">
+                <div className="col-sm">
+                    <BudgetAmount/>
+                </div>
+                <div className="col-sm">
+                    <RemainingAmount/>
+                </div>
+                <div className="col-sm">
+                    <AmountSpent/>
+                </div>
+                <h3 className="mt-3">Expenses List</h3>
+                <div className="row mt-3">
+                    <div className="col-sm">
+                        <ExpenseList/>
+                    </div>
+                </div>
+                <h3 className="mt-3">Add Expense Info</h3>
+                <div className="mt-3">
+                    <div className="col-sm">
+                        <AddExpense/>
+                    </div>
+                </div>
                 <h1>Profile</h1>
                 <p>Email: {authUser?.email}</p>
                 <button onClick={userSignOut}>Sign Out</button>
@@ -85,6 +113,7 @@ function Home() {
                 </div>
             </div>
         </div>
+        </AppProvider>
     );    
 }
 
