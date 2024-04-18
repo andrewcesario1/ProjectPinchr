@@ -84,7 +84,6 @@ function Home() {
                 </div>
                 <h1>Profile</h1>
                 <p>Email: {authUser?.email}</p>
-                <button onClick={userSignOut}>Sign Out</button>
                 <p>Enter an expense below</p>
                 <div class="expenseInput">
                     <label> $<input 
