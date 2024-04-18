@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, serverTimestamp, query, where, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import BudgetAmount from './BudgetAmount';
 import RemainingAmount from './RemainingAmount';
 import AmountSpent from './AmountSpent';
 import ExpenseList from './ExpenseList';
 import AddExpense from './AddExpense';
 import { AppProvider } from '../Context/AppContext';
+import Navbar from './Navbar';
+import "../Styles/home.css";
 
 function Home() {
     const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
     const [expense, setExpense] = useState('');
-    const [expenses, setExpenses] = useState([]); // State to hold expenses
+    const [expenses, setExpenses] = useState([]);
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user) {
                 setAuthUser(user);
-                // Fetch expenses when user is set
-                const q = query(collection(db, "expenses"), where("uid", "==", user.uid));
+                const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
                 const unsubscribe = onSnapshot(q, (querySnapshot) => {
                     const expensesArray = querySnapshot.docs.map(doc => ({
                         id: doc.id,
@@ -29,7 +30,7 @@ function Home() {
                     }));
                     setExpenses(expensesArray);
                 });
-                return unsubscribe; // Unsubscribe from the listener when the component unmounts
+                return unsubscribe;
             } else {
                 navigate('/signin');
             }
@@ -40,23 +41,15 @@ function Home() {
         }
     }, [navigate]);
 
-    const userSignOut = () => {
-        signOut(auth).then(() => {
-            navigate('/signin');
-        }).catch(error => console.log(error));
-    };
-
     const addExpense = async () => {
-        if (!authUser) return; // Exit if there's no user signed in
-
+        if (!authUser) return;
         try {
             await addDoc(collection(db, "expenses"), {
                 uid: authUser.uid,
                 amount: parseFloat(expense),
                 createdAt: serverTimestamp()
             });
-            // No need to manually update the state here; the onSnapshot listener will do it automatically
-            setExpense(''); // Reset the input field after adding
+            setExpense(''); 
         } catch (error) {
             console.error("Error adding expense: ", error);
             alert("Failed to add expense. Try again.");
@@ -93,24 +86,27 @@ function Home() {
                 <p>Email: {authUser?.email}</p>
                 <button onClick={userSignOut}>Sign Out</button>
                 <p>Enter an expense below</p>
-                <label> $<input 
-                    id="expenseInput"
-                    type="number" 
-                    placeholder="Enter an expense"
-                    value={expense}
-                    onChange={(e) => setExpense(e.target.value)}
-                    required />
-                </label>
-                <br /><br />
-                <button onClick={addExpense}>Add Expense</button>
-                <div>
-                    <h2>Expenses</h2>
-                    <ul>
-                        {expenses.map(expense => (
-                            <li key={expense.id}>${expense.amount}</li>
-                        ))}
-                    </ul>
+                <div class="expenseInput">
+                    <label> $<input 
+                        id="expenseInput"
+                        type="number" 
+                        placeholder="Enter an expense"
+                        value={expense}
+                        onChange={(e) => setExpense(e.target.value)}
+                        required />
+                    </label>
                 </div>
+                <button onClick={addExpense}>Add Expense</button>
+            </div>
+            <div class="expenseDiv">
+                <h2>Expenses</h2>
+                <table>
+                    
+                    {expenses.map(expense => (
+                        <tr><td class="amount" key={expense.id}>${expense.amount}</td></tr>
+                    ))}
+                    
+                </table>
             </div>
         </div>
         </AppProvider>
