@@ -57,7 +57,36 @@ function Home() {
     };
 
     return (
+        
         <AppProvider>
+            <div className="page">
+            <Navbar />
+            <div className="homeHeader">Pinchr Expense Manager</div>
+            <div className="homeBody">
+                <p>Enter an expense below</p>
+                <div class="expenseInput">
+                    <label> $<input 
+                        id="expenseInput"
+                        type="number" 
+                        placeholder="Enter an expense"
+                        value={expense}
+                        onChange={(e) => setExpense(e.target.value)}
+                        required />
+                    </label>
+                </div>
+                <button onClick={addExpense}>Add Expense</button>
+            </div>
+            <div class="expenseDiv">
+                <h2>Expenses</h2>
+                <table>
+                    
+                    {expenses.map(expense => (
+                        <tr><td class="amount" key={expense.id}>${expense.amount}</td></tr>
+                    ))}
+                    
+                </table>
+            </div>
+        </div>
         <div className="container">
             <h1 className="mt-3">Pinchr Expense Manager</h1>
             <div className="row mt-3">

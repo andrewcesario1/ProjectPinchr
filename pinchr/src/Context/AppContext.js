@@ -21,7 +21,14 @@ const AppReducer = (state, action) => {
                 ...state,
                 //current state with the new expenses added at the end of the array
                 expenses: [...state.expenses, action.payload],
-            }
+            };
+        case 'Delete_Expense':
+            return {
+                ...state,
+                expenses: state.expenses.filter((expense) => expense.id !== action.payload
+            ),
+
+            };
         default: 
         return state;
     }
