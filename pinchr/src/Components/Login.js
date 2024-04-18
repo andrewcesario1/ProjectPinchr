@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../Styles/index.css';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../firebase';
 import { useNavigate } from "react-router-dom"
 import userIcon from '../Assets/userIcon.png'
 import pwIcon from '../Assets/passwordIcon.png'
@@ -13,7 +13,18 @@ function  Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      navigate('/')
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
 
   const signIn = (e) => {
     e.preventDefault();
@@ -66,6 +77,8 @@ function  Login() {
           <button id="loginbtn" type="submit">Login</button>
           <br /><br />
           {error && <div class= "loginError"><p style={{ color: 'red', marginTop: '10px' }}>{error}</p></div>}
+          <button onClick={signInWithGoogle}>Sign in with google</button>
+          <br /><br />
           <a href="/register" id="register">Don't have an account? Register here.</a>
           </form>
       </div>
