@@ -16,6 +16,7 @@ function Home() {
     const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
     const [expense, setExpense] = useState('');
+    const [category, setCategory] = useState('Miscellaneous');
     const [expenses, setExpenses] = useState([]);
 
     useEffect(() => {
@@ -47,9 +48,11 @@ function Home() {
             await addDoc(collection(db, "expenses"), {
                 uid: authUser.uid,
                 amount: parseFloat(expense),
+                expenseCategory: category,
                 createdAt: serverTimestamp()
             });
-            setExpense(''); 
+            setExpense('');
+            setCategory('Miscellaneous'); 
         } catch (error) {
             console.error("Error adding expense: ", error);
             alert("Failed to add expense. Try again.");
@@ -74,15 +77,44 @@ function Home() {
                         required />
                     </label>
                 </div>
+                <div class="categoryInput">
+                    <label className='categoryLabel'> Category:</label>
+                    <select id='categorySelect'
+                            type="text"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            required>
+                        
+                        <option value={"Miscellaneous"}>Miscellaneous</option>
+                        <option value={"Food"}>Food</option>
+                        <option value={"Entertainment"}>Entertainment</option>
+                        <option value={"Insurance"}>Insurance</option>
+                        <option value={"Mortgage/Rent"}>Mortgage/Rent</option>
+                        <option value={"Car"}>Car</option>
+                        <option value={"Phone Bill"}>Phone Bill</option>
+                        <option value={"Utilities"}>Utilities</option>
+                        <option value={"Repairs"}>Repairs</option>
+
+                    </select>
+                </div>
                 <button onClick={addExpense}>Add Expense</button>
             </div>
             <div class="expenseDiv">
                 <h2>Expenses</h2>
                 <table>
-                    
-                    {expenses.map(expense => (
-                        <tr><td class="amount" key={expense.id}>${expense.amount}</td></tr>
-                    ))}
+                    <tr>
+                        <th>Amount</th>
+                        <th>Category</th>
+                    </tr>
+                    <tbody>
+                        {expenses.map(expense => (
+                            <tr key={expense.id}>
+                                <td class="amount" key={expense.id}>${expense.amount}</td>
+                                <td class="category" key={expense.id}>{expense.expenseCategory}</td>
+                                {/* <td class="timestamp" key={expense.id}>Time{expense.CreatedAt}</td> */}
+                            </tr>
+                        ))}
+                    </tbody>
                     
                 </table>
             </div>
