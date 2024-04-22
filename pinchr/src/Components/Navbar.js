@@ -42,7 +42,7 @@ function Navbar() {
                     <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>
                     <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>   
                 </ul>
-                <ul class="signout">                   
+                <ul className="signout">                   
                     <li className="navl"><Link className="nav-signout" onClick={userSignOut} >Sign Out</Link></li>
                 </ul>
             </nav>

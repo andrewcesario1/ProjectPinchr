@@ -52,7 +52,7 @@ function  Register() {
       <div className="Login">
         <form onSubmit={signUp}>
           <h2 id = "registerHeader">Create an Account</h2>
-          <div class="inputField">
+          <div className="inputField">
             <img src={userIcon} alt="name"/>
             <input
               id="name"
@@ -62,7 +62,7 @@ function  Register() {
               onChange={(e) => setName(e.target.value)}
               required />
           </div>
-          <div class="inputField">
+          <div className="inputField">
             <img src={emailIcon} alt="email"/>
             <input 
               id="Email"
@@ -72,7 +72,7 @@ function  Register() {
               onChange={(e) => setEmail(e.target.value)}
               required />
           </div>
-          <div class="inputField">
+          <div className="inputField">
             <img src={pwIcon} alt="password"/>
             <input
               id="pass"

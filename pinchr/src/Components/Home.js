@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, serverTimestamp, query, where, orderBy, onSnapshot } from "firebase/firestore";
+import { addDoc, getDocs, collection, serverTimestamp, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import BudgetAmount from './BudgetAmount';
 import RemainingAmount from './RemainingAmount';
+import ExpenseDB from './ExpenseDB';
 import AmountSpent from './AmountSpent';
 import ExpenseList from './ExpenseList';
 import AddExpense from './AddExpense';
@@ -17,6 +18,31 @@ function Home() {
     const navigate = useNavigate();
     const [expense, setExpense] = useState('');
     const [expenses, setExpenses] = useState([]);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) =>{
+            if(user){
+                setAuthUser(user);
+                fetchData(user);
+            }
+            else{
+                setAuthUser(null);
+                setExpenses([]);
+            } 
+        });
+            return ()=> unsubscribe();
+    }, []);
+
+        const fetchData = async (user) =>{
+            const q = collection(db, "expenses");
+            const querySnapshot = await getDocs(q);
+            const expensesArray = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+        setExpenses(expensesArray);
+
+        };
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
@@ -106,11 +132,17 @@ function Home() {
                     </div>
                 </div>
                 <h3 className="mt-3">Add Expense Info</h3>
-                <div className="mt-3">
+                <div className="row mt-3">
                     <div className="col-sm">
-                        <AddExpense/>
+                        <AddExpense authUser={authUser}/>
                     </div>
                 </div>
+                <h3 className="row mt-3">Expense Database</h3>
+                    <div className="row mt-3">
+                        <div className="col-sm">
+                            <ExpenseDB expenses={expenses}/>
+                        </div>
+                    </div>
                 <h1>Profile</h1>
                 <p>Email: {authUser?.email}</p>
                 <p>Enter an expense below</p>

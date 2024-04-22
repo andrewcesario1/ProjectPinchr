@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path = '/' element={<Home />}/>
           <Route path = '/signin' element={<Login />}/>
-          <Route path = '/register' element={<Register />}/>
+          <Route path = '/register' exact element={<Register />}/>
           <Route path = '/profile' element={<Profile />}/>
         </Routes>
       </div>

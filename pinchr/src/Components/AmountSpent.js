@@ -10,7 +10,7 @@ const AmountSpent = () =>{
 
     return(
         <div className="alert alert-info">
-            <span>Amount Spent: ${(totalAmount).toFixed(2)}</span>
+            <span>Amount Spent: ${Number(totalAmount).toFixed(2)}</span>
         </div>
     );
 };

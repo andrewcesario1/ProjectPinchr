@@ -1,14 +1,13 @@
-import { createContext, useReducer } from "react";
-
+import React, { createContext, useReducer } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const initState = {
     budget: 3000,
     expenses: [
-        {id: 1234, category: "shopping", amount: 300},
-        {id: 1235, category: "groceries", amount: 58},
-        {id: 1236, category: "car insurance", amount: 100},
-        {id: 1233, category: "medical bills", amount: 300},
-
+        {id: uuidv4(), category: "shopping", amount: 300},
+        {id: uuidv4(), category: "groceries", amount: 58},
+        {id: uuidv4(), category: "car insurance", amount: 100},
+        {id: uuidv4(), category: "medical bills", amount: 300},
     ]
 }
 

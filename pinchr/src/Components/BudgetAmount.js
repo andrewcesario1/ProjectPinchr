@@ -5,7 +5,7 @@ const BudgetAmount = () => {
     const { budget } = useContext(AppContext);
     return(
         <div className="alert alert-secondary">
-            <span>Budget Amount: ${(budget).toFixed(2)}</span>
+            <span>Budget Amount: ${Number(budget).toFixed(2)}</span>
         </div>
     )
 }
