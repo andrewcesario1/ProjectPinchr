@@ -57,7 +57,7 @@ const AddExpense = ({ authUser, expenses }) =>
              <form onSubmit={onSubmit}>
          <div className="row align-items-center">
                 <div className="dropdown col-sm-2 mt-4">
-                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" required>
+                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         {selectedCategory || "Select Category"} <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu">
