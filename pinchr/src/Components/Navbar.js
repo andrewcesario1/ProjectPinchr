@@ -38,7 +38,7 @@ function Navbar() {
                 <ul>
                     <li className="navl"><Link className="navHome" to="/">Home</Link></li>
                     <li className="navl"><Link className="nav-link" to="/profile">Profile</Link></li>
-                    <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>   
+                    <li className="navl"><Link className="nav-link" to="/budget">Budgets</Link></li>   
                     <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>
                     <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>   
                 </ul>
