@@ -90,3 +90,12 @@
 .expenseDiv tr:nth-child(odd) {
     background-color: rgb(184, 227, 255);    
 }
+
+.isBudget {
+    display: flex;
+    align-items: center;  /* This will vertically center the checkbox and the text */
+}
+
+.budget {
+    margin-left: 10px;  /* Adds some space between the checkbox and the text */
+}
