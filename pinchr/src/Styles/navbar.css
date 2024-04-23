@@ -14,16 +14,18 @@ a {
     display: inline-block;
 }
 .navbar {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: bisque;
+    background-color: midnightblue;
 }
 
 
 .navHome {
     font-size: 25px;
-    color: rgb(35, 35, 255);
+    color: white;
+    /* color: rgb(35, 35, 255); */
     font-weight: bolder;
     border-right : 3px solid dodgerblue;
     
@@ -34,7 +36,8 @@ a {
     padding-left: 50px;
     padding-right: 50px;
     text-align: center;
-    color: rgb(35, 35, 255);
+    color: white;
+    /* color: rgb(35, 35, 255); */
     font-size: larger;
     
 }

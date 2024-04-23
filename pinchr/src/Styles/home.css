@@ -1,3 +1,4 @@
+
 .page {
     background-color: white;
     height: 900px;
@@ -91,11 +92,23 @@
     background-color: rgb(184, 227, 255);    
 }
 
+.mt-3 {
+    color: white;
+}
+
+.categoryCell {
+    text-align: center;
+}
+
+.categoryCell:hover {
+    background-color: rgb(179, 172, 172);
+}
+
 .isBudget {
     display: flex;
-    align-items: center;  /* This will vertically center the checkbox and the text */
+    align-items: center; 
 }
 
 .budget {
-    margin-left: 10px;  /* Adds some space between the checkbox and the text */
+    margin-left: 10px;  
 }

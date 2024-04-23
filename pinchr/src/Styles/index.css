@@ -1,3 +1,4 @@
+
 .kumar-one-regular {
   font-family: 'Kumar One', serif;
   font-weight: 400;
@@ -6,7 +7,7 @@
 
 body {
   background: linear-gradient( rgb(35, 35, 255), rgb(6, 6, 70));
-  height: 100vh;
+  height: auto;
   color: blue;
 }
 
@@ -57,7 +58,7 @@ img {
   color: white;
   background-color: rgb(35, 35, 255);
   height: 40px;
-  width: 60px;
+  width: 75px;
   border: none;
 }
 
@@ -131,4 +132,11 @@ img {
   border-radius: 10px;
   border: 2px rgb(84, 169, 240) solid;
   background-color: rgb(184, 227, 255);
+}
+
+.googleBtn {
+  width: 250px;
+  height: 55px;
+  border-radius: 50px;
+  border-color: dodgerblue;
 }

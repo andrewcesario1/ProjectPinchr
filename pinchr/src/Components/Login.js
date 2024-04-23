@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import '../Styles/index.css';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../firebase';
 import { useNavigate } from "react-router-dom"
-import userIcon from '../Assets/userIcon.png'
+import googleIcon from '../Assets/googleIcon.png'
 import pwIcon from '../Assets/passwordIcon.png'
 import emailIcon from '../Assets/emailIcon.png'
 
@@ -77,7 +78,7 @@ function  Login() {
           <button id="loginbtn" type="submit">Login</button>
           <br /><br />
           {error && <div class= "loginError"><p style={{ color: 'red', marginTop: '10px' }}>{error}</p></div>}
-          <button onClick={signInWithGoogle}>Sign in with google</button>
+          <button onClick={signInWithGoogle} className='googleBtn'><img src={googleIcon} alt='googleIcon' />Sign in with Google</button>
           <br /><br />
           <a href="/register" id="register">Don't have an account? Register here.</a>
           </form>
