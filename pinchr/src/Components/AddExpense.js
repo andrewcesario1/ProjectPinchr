@@ -96,15 +96,9 @@ const AddExpense = ({ authUser, expenses }) => {
                     </button>
                     <ul className="dropdown-menu">
                         {categories.map(category => (
-<<<<<<< HEAD
                         <li className="categoryCell"key={category}>
                             <a href="#" onClick={(e) => handleCategorySelection(category, e)}>{category}</a>
                         </li>
-=======
-                            <li key={category}>
-                                <a href="#" onClick={(e) => handleCategorySelection(category, e)}>{category}</a>
-                            </li>
->>>>>>> 268fc36ec934df3c45393899c7cddcb83eea5988
                         ))}
                     </ul>
                 </div>
