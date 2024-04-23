@@ -16,6 +16,7 @@ function App() {
           <Route path = '/register' exact element={<Register />}/>
           <Route path = '/profile' element={<Profile />}/>
           <Route path = '/budget' element={<Budget />}/>
+          <Route path = '/analytics' element={<Profile />}/>
         </Routes>
       </div>
     </Router>
