@@ -3,6 +3,7 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import Home from './Components/Home';
 import Profile from './Components/Profile';
+import Budget from './Components/Budget';
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path = '/signin' element={<Login />}/>
           <Route path = '/register' exact element={<Register />}/>
           <Route path = '/profile' element={<Profile />}/>
+          <Route path = '/budget' element={<Budget />}/>
         </Routes>
       </div>
     </Router>

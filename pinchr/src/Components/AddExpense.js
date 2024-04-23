@@ -86,6 +86,10 @@ const AddExpense = ({ authUser, expenses }) =>
                   onChange={(e)=>setAmount(e.target.value)}
                    required></input>
              </div>
+             <div className="isBudget">
+                <p>Is this part of a budget plan?</p>
+                <input type="checkbox" />
+             </div>
              <div className="col-sm mt-4">
                  <button type="submit" className="btn btn-success" disabled={!isCategorySelected}>Submit</button>
              </div>
