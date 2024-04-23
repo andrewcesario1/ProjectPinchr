@@ -19,7 +19,7 @@ const AddExpense = ({ authUser, expenses }) =>
          setSelectedCategory(category);
          setIsCategorySelected(true);
     }
-    const categories = ["Food", "Entertainment", "Utilities", "Phone Bill"];
+    const categories = ["Food", "Entertainment", "Utilities", "Phone Bill", "Rent/Mortgage", "Insurance", "Repairs", "Miscellaneous"];
 
     const onSubmit = async (e) => {
         e.preventDefault();
