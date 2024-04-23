@@ -40,7 +40,7 @@ const AddExpense = ({ authUser, expenses }) => {
     };
     
 
-    const categories = ["Food", "Entertainment", "Utilities", "Phone Bill"];
+    const categories = ["Food", "Entertainment", "Utilities", "Phone Bill", "Rent/Mortgage", "Insurance", "Repairs", "Miscellaneous"];
 
     const onSubmit = async (e) => {
         e.preventDefault();
