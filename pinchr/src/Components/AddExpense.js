@@ -90,8 +90,9 @@ const AddExpense = ({ authUser, expenses }) => {
     return (
         <form onSubmit={onSubmit}>
             <div className="row align-items-center">
-                <div className="dropdown col-sm-2 mt-4">
-                    <button className="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <div className="col-sm-2 mb-1 mt-4">
+                <div className="dropdown">
+                    <button id="category"className="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         {selectedCategory || "Select Category"} <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu">
@@ -102,9 +103,10 @@ const AddExpense = ({ authUser, expenses }) => {
                         ))}
                     </ul>
                 </div>
+            </div>
              
-                <div className="col-sm-5">
-                    <label htmlFor="amount" className="mb-1">Amount</label>
+                <div className="col-sm-5 mb-1">
+                    <label htmlFor="amount">Amount</label>
                     <input type="text"
                         className="form-control" 
                         id="amount"

@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { addDoc, getDocs, collection, serverTimestamp, query, where, orderBy, onSnapshot } from "firebase/firestore";
+import { getDocs, collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import ExpenseDB from './ExpenseDB';
-import ExpenseList from './ExpenseList';
 import AddExpense from './AddExpense';
 import { AppProvider } from '../Context/AppContext';
 import Navbar from './Navbar';
+import ExpenseContainer from './ExpenseContainer';
 import "../Styles/home.css";
 
 function Home() {
     const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
-    const [expense, setExpense] = useState('');
-    const [category, setCategory] = useState('Miscellaneous');
     const [expenses, setExpenses] = useState([]);
 
     useEffect(() => {
@@ -32,7 +30,7 @@ function Home() {
     }, []);
 
         const fetchData = async (user) =>{
-            const q = collection(db, "expenses");
+            const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
             const querySnapshot = await getDocs(q);
             const expensesArray = querySnapshot.docs.map(doc => ({
             id: doc.id,
@@ -42,7 +40,7 @@ function Home() {
 
         };
 
-    useEffect(() => {
+   useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user) {
                 setAuthUser(user);
@@ -65,23 +63,6 @@ function Home() {
         }
     }, [navigate]);
 
-    const addExpense = async () => {
-        if (!authUser) return;
-        try {
-            await addDoc(collection(db, "expenses"), {
-                uid: authUser.uid,
-                amount: parseFloat(expense),
-                expenseCategory: category,
-                createdAt: serverTimestamp()
-            });
-            setExpense('');
-            setCategory('Miscellaneous'); 
-        } catch (error) {
-            console.error("Error adding expense: ", error);
-            alert("Failed to add expense. Try again.");
-        }
-    };
-
     return (
         
         <AppProvider>
@@ -91,9 +72,11 @@ function Home() {
             <div className="row mt-3">
                 <h3 className="mt-3">Expenses List</h3>
                 <div className="row mt-3">
-                    <div className="col-sm">
-                        <ExpenseList/>
-                    </div>
+                    {/*<div className="col-sm">*/}
+                    <ExpenseContainer>
+                        <ExpenseDB expenses={expenses}/>
+                    </ExpenseContainer>
+                    {/*</div>*/}
                 </div>
                 <h3 className="mt-3">Add Expense Info</h3>
                 <div className="row mt-3">
@@ -101,12 +84,8 @@ function Home() {
                         <AddExpense authUser={authUser}/>
                     </div>
                 </div>
-                <h3 className="row mt-3">Expense Database</h3>
-                    <div className="row mt-3">
-                        <div className="col-sm">
-                            <ExpenseDB expenses={expenses}/>
-                        </div>
-                    </div>
+                <div className='mb-5'>
+                </div>
             </div>
         </div>
         </AppProvider>
