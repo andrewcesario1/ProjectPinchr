@@ -1,12 +1,13 @@
 .profile {
+    margin-left: 10px;
     height: 600px;
     width: auto;
-    background-color: dodgerblue;
+    background-color: linear-gradient( rgb(35, 35, 255), rgb(6, 6, 70));
+    color: white;
 }
 
 .profile button {
-    margin-top: 100px;
-    margin-left: 100px;
+    margin-top: 20px;
     width: 200px;
     height: 50px;
 }

@@ -155,6 +155,7 @@ const Budget = () => {
                 <div>
                     <label htmlFor="budgetName">Budget Name:</label>
                     <input
+                        placeholder='Name'
                         id="budgetName"
                         type="text"
                         value={budgetName}
@@ -163,8 +164,9 @@ const Budget = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="budgetAmount">Budget Amount:</label>
+                    <label htmlFor="budgetAmount">Budget Amount $:</label>
                     <input
+                        placeholder='0.00'
                         id="budgetAmount"
                         type="number"
                         value={budgetAmount}
@@ -173,8 +175,9 @@ const Budget = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="totalSpent">Total Spent (optional):</label>
+                    <label htmlFor="totalSpent">Total Spent $ (optional):</label>
                     <input
+                        placeholder='0.00'
                         id="totalSpent"
                         type="number"
                         value={totalSpent}
