@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import '../Styles/profile.css';
 import Navbar from "./Navbar";
+
 function Profile() {
     const navigate = useNavigate();
     const [authUser, setAuthUser] = useState(null);  // State to hold the authenticated user object
@@ -29,11 +31,13 @@ function Profile() {
     };
     
     return (
-        <div className="profile">
+        <div className="container">
             <Navbar />
-            <h1>Profile</h1>
-            <p>Email: {authUser?.email}</p>
-            <button onClick={userSignOut}>Sign Out</button>
+            <div className="profile">
+                <h1>Profile</h1>
+                <p>Email: {authUser?.email}</p>
+                <button onClick={userSignOut}>Delete Account</button>
+            </div>
         </div>
     );
 }

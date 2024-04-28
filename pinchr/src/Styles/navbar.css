@@ -22,13 +22,27 @@ a {
 }
 
 
-.navHome {
+.navHomeDiv {
+    height: 50px;
+    width: 50px;
     font-size: 25px;
     color: white;
     /* color: rgb(35, 35, 255); */
     font-weight: bolder;
-    border-right : 3px solid dodgerblue;
+    /* border-right : 3px solid dodgerblue; */
     
+}
+
+
+.nav-profile {
+    border-left: 2px dodgerblue solid;
+    border-right: 2px dodgerblue solid;
+    padding-right: 50px;
+    text-align: center;
+    color: white;
+    /* color: rgb(35, 35, 255); */
+    font-size: larger;
+
 }
 
 .nav-link {
@@ -45,10 +59,14 @@ a {
 .nav-link:hover {
     background-color:rgb(184, 227, 255);
 }
+
+.nav-profile:hover {
+    background-color:rgb(184, 227, 255);
+}
 .nav-signout {
     color: rgb(35, 35, 255);
     float: right;
-    padding-left: 500;
+
     background-color:rgb(184, 227, 255);
     border-radius: 5px;
 }
