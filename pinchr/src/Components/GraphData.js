@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getDocs, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { getDocs, collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import Navbar from './Navbar';
 import "../Styles/graph.css";
 import { Doughnut } from 'react-chartjs-2';
-import {Chart, ArcElement} from 'chart.js'
-Chart.register(ArcElement);
+import { Chart as ChartJS } from 'chart.js/auto'
+import {ArcElement, Legend, Tooltip} from 'chart.js'
+ChartJS.register(ArcElement, Legend, Tooltip);
 
 export default function Graphs() {
     const [authUser, setAuthUser] = useState(null);
+    const navigate = useNavigate();
     const [expenses, setExpenses] = useState([]);
-    // const [sortedExpenses, setSortedExpenses] = useState([{"Food" : 0}, {"Entertainment" : 0}, {"Utilities" : 0}, {"PhoneBill" : 0},
-    // {"RentMortgage" : 0}, {"Insurance" : 0}, {"Repairs" : 0}, {"Misc" : 0}]);
+
 
 
     useEffect(() => {
@@ -41,12 +43,30 @@ export default function Graphs() {
         setExpenses(expensesArray);
 
         };
-        // let sortedExpenses = []
-        // sortedExpenses = [{"Food" : 0}, {"Entertainment" : 0}, {"Utilities" : 0}, {"PhoneBill" : 0},
-        // {"RentMortgage" : 0}, {"Insurance" : 0}, {"Repairs" : 0}, {"Misc" : 0}]
-        // {expenses.map(expense => (
-        //     sortedExpenses[expense.category] += expense.amount
-        // ))};
+
+        useEffect(() => {
+            const listen = onAuthStateChanged(auth, (user) => {
+                if(user) {
+                    setAuthUser(user);
+                    const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+                    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                        const expensesArray = querySnapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        setExpenses(expensesArray);
+                    });
+                    return unsubscribe;
+                } else {
+                    navigate('/signin');
+                }
+            });
+    
+            return () => {
+                listen();
+            }
+        }, [navigate]);
+
         const sortedExpenses = expenses.reduce((acc, expense) => {
             acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
 
@@ -89,40 +109,6 @@ export default function Graphs() {
                 <h1>Take a look at your expenses!</h1>
                 <div className='graphData'>
                     <p className='graphDescription'>Amount Spent per Category</p>
-                    <div className='labels'>
-                        <div className='label' id='l1'>
-                            <p>Food</p>
-                            <p>${parseFloat(sortedExpenses.Food).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l2'>
-                            <p>Entertainment</p>
-                            <p>${parseFloat(sortedExpenses.Entertainment).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l3'>
-                            <p>Utilities</p>
-                            <p>${parseFloat(sortedExpenses.Utilities).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l4'>
-                            <p>Phone Bill</p>
-                            <p>${parseFloat(sortedExpenses.PhoneBill).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l5'>
-                            <p>Rent/Mortgage</p>
-                            <p>${parseFloat(sortedExpenses.RentMortgage).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l6'>
-                            <p>Insurace</p>
-                            <p>${parseFloat(sortedExpenses.Insurance).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l7'>
-                            <p>Repairs</p>
-                            <p>${parseFloat(sortedExpenses.Repairs).toFixed(2)}</p>
-                        </div>
-                        <div className='label' id='l8'>
-                            <p>Misc.</p>
-                            <p>${parseFloat(sortedExpenses.Misc).toFixed(2)}</p>
-                        </div>
-                    </div>
                 </div>
                 <div className="graphContainer">
                     <Doughnut
@@ -130,15 +116,14 @@ export default function Graphs() {
                         options={{
                             plugins: {
                             title:{
-                                display:true,
-                                text:'Amount Spent per category',
-                                fontSize:20
+                                display:true
                             },
                             legend:{
                                 display:true,
                                 position:'right'
-                            }
-                        }}}
+                            }   
+                        }
+                    }}
                     />
                 </div>
             </div>

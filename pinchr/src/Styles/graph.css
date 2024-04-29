@@ -1,14 +1,20 @@
+body {
+    width: 100vmax;
+    height: 100vmax;
+}
+
 .pageContainer {
-    background-color: lightskyblue;
-    height: 100vh;
+    /* background-color: lightskyblue; */
+    height: 100%;
+    width: 100%;
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
 .graphContainer {
-    width: 600px;
-    height: 500px;
+    width: 80%;
+    height: 50%;
     margin-left: 100px;
     background-color: white;
     border-radius: 10px;
@@ -25,7 +31,11 @@
 }
 
 .graphData {
-    background-color: lightskyblue;
+    /* background-color: lightskyblue; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
 }
 
 .graphDescription {
@@ -37,19 +47,25 @@
 }
 
 .labels {
-    display: flex;
-    
+    gap: 20px 30px;
+    align-items: stretch;
+    height: auto;
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 .label {
-    width: 200px;
+    flex: 1;
+    flex-grow: 1;
+    min-width: 200px;
     height: 60px;
     border: 2px solid black;
     border-radius: 10px;
     margin: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 #l1 {
@@ -58,11 +74,13 @@
 }
 
 #l2 {
+    flex-grow: 2;
     background-color: rgb(14, 53, 78);
     color: white;
 }
 
 #l3 {
+    flex-grow: 2;
     background-color: rgb(122, 191, 233);
     color: black;
 }
@@ -73,6 +91,7 @@
 }
 
 #l5 {
+    flex-grow: 2;
     background-color: rgb(6, 43, 255);
     color: white;
 }
