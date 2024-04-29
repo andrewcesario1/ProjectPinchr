@@ -1,0 +1,94 @@
+.pageContainer {
+    background-color: lightskyblue;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.graphContainer {
+    width: 600px;
+    height: 500px;
+    margin-left: 100px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageContainer h1 {
+    padding-top: 20px;
+    color: white;
+    text-align: center;
+}
+
+.graphData {
+    background-color: lightskyblue;
+}
+
+.graphDescription {
+    text-align: center;
+    color: white;
+    text-decoration: underline;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.labels {
+    display: flex;
+    
+}
+
+.label {
+    width: 200px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#l1 {
+    background-color: rgb(37, 119, 173);
+    color: white;
+}
+
+#l2 {
+    background-color: rgb(14, 53, 78);
+    color: white;
+}
+
+#l3 {
+    background-color: rgb(122, 191, 233);
+    color: black;
+}
+
+#l4 {  
+    background-color: rgb(6, 159, 255);
+    color: black;
+}
+
+#l5 {
+    background-color: rgb(6, 43, 255);
+    color: white;
+}
+
+#l6 {
+    background-color: rgb(111, 127, 216);
+    color: black;
+}
+
+#l7 {
+    background-color: rgb(61, 77, 131);
+    color: white;
+}
+
+#l8 {
+    background-color: rgb(75, 80, 94);
+    color: white;
+}
+

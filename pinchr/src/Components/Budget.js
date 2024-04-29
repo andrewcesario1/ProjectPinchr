@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db , auth} from '../firebase'; // Make sure this path is correct
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import Navbar from './Navbar';
+import "../Styles/budget.css"
 import { onAuthStateChanged } from 'firebase/auth';
 
 

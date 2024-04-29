@@ -88,7 +88,7 @@
 }
 
 .expenseDiv tr:nth-child(odd) {
-    background-color: rgb(184, 227, 255);    
+    background-color: rgb(184, 227, 255);
 }
 
 .mt-3 {

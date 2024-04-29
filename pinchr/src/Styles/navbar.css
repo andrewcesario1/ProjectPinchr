@@ -14,23 +14,26 @@ a {
     display: inline-block;
 }
 .navbar {
-    width: 100%;
+    width:100vw;
+    height: 90px;
+    margin-top: 0;
+   
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: midnightblue;
 }
 
+.navHome {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
 
-.navHomeDiv {
-    height: 50px;
+.stageDiv {
+    height: 70px;
     width: 50px;
-    font-size: 25px;
-    color: white;
-    /* color: rgb(35, 35, 255); */
-    font-weight: bolder;
-    /* border-right : 3px solid dodgerblue; */
-    
+    border-radius: 50px;
+    padding-top: 0;
 }
 
 

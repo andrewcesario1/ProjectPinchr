@@ -14,8 +14,8 @@ function Model(props) {
   useFrame(state => {
 
     const {position, rotation} = group.current;
-    position.y += (Math.sin(1000 + state.clock.elapsedTime) * Math.PI) / 1200;
-    rotation.y += 0.02;
+    // position.y += (Math.sin(1000 + state.clock.elapsedTime) * Math.PI) / 1200;
+    rotation.y += 0.015;
 
   });
   return (
@@ -90,8 +90,8 @@ function Navbar() {
         
         <header class="navHeader">
             <nav className="navbar">
-            <div className='navHomeDiv'>
                     <Link className="navHome" to="/">
+                      <div className='stageDiv'>
                         <Canvas >
                             <Stage environment="park" contactShadowOpacity={1}>
                                 <Resize  >
@@ -99,7 +99,8 @@ function Navbar() {
                                 </Resize>
                             </Stage>                     
                         </Canvas>
-                    </Link></div>
+                      </div>
+                    </Link>
                 <ul>
                     <li className="navl"><Link className="nav-profile" to="/profile">Profile</Link></li>
                     <li className="navl"><Link className="nav-link" to="/budget">Budgets</Link></li>   

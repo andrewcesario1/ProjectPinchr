@@ -4,6 +4,7 @@ import Register from './Components/Register';
 import Home from './Components/Home';
 import Profile from './Components/Profile';
 import Budget from './Components/Budget';
+import Graphs from './Components/GraphData';
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
           <Route path = '/register' exact element={<Register />}/>
           <Route path = '/profile' element={<Profile />}/>
           <Route path = '/budget' element={<Budget />}/>
-          <Route path = '/analytics' element={<Profile />}/>
+          <Route path = '/analytics' element={<Graphs />}/>
         </Routes>
       </div>
     </Router>
