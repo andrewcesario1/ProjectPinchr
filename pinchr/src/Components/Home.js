@@ -16,52 +16,27 @@ function Home() {
     const [expenses, setExpenses] = useState([]);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) =>{
-            if(user){
-                setAuthUser(user);
-                fetchData(user);
-            }
-            else{
-                setAuthUser(null);
-                setExpenses([]);
-            } 
-        });
-            return ()=> unsubscribe();
-    }, []);
-
-        const fetchData = async (user) =>{
-            const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
-            const querySnapshot = await getDocs(q);
-            const expensesArray = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-        setExpenses(expensesArray);
-
-        };
-
-   useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
-            if(user) {
+        const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+            if (user) {
                 setAuthUser(user);
                 const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
-                const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const unsubscribeFirestore = onSnapshot(q, (querySnapshot) => {
                     const expensesArray = querySnapshot.docs.map(doc => ({
                         id: doc.id,
                         ...doc.data()
                     }));
                     setExpenses(expensesArray);
                 });
-                return unsubscribe;
+                return unsubscribeFirestore; // Unsubscribes from Firestore when the effect is cleaned up.
             } else {
+                setAuthUser(null);
+                setExpenses([]);
                 navigate('/signin');
             }
         });
-
-        return () => {
-            listen();
-        }
+        return unsubscribeAuth; // Unsubscribes from Auth when the effect is cleaned up.
     }, [navigate]);
+    
 
     return (
         
