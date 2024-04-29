@@ -1,0 +1,22 @@
+.aboutInfo p{
+    text-align: left;
+    margin-left: 20px;
+}
+
+.aboutInfo h1{
+    text-align: left;
+    margin-left: 20px;
+}
+
+.about-container {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+ 
+
+.aboutInfo h2{
+    text-align: left;
+    margin-left: 20px;
+    color: white;
+}

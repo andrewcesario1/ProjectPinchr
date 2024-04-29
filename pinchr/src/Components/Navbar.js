@@ -105,7 +105,7 @@ function Navbar() {
                     <li className="navl"><Link className="nav-profile" to="/profile">Profile</Link></li>
                     <li className="navl"><Link className="nav-link" to="/budget">Budgets</Link></li>   
                     <li className="navl"><Link className="nav-link" to="/analytics">Analytics</Link></li>
-                    <li className="navl"><Link className="nav-link" to="/profile">Placeholder</Link></li>   
+                    <li className="navl"><Link className="nav-link" to="/about">About</Link></li>   
                 </ul>
                 <ul className="signout">                   
                     <li className="navl"><Link className="nav-signout" onClick={userSignOut} >Sign Out</Link></li>

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Home from './Components/Home';
 import Profile from './Components/Profile';
 import Budget from './Components/Budget';
 import Graphs from './Components/GraphData';
+import AboutPage from './Components/AboutPage';
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path = '/profile' element={<Profile />}/>
           <Route path = '/budget' element={<Budget />}/>
           <Route path = '/analytics' element={<Graphs />}/>
+          <Route path = '/about' element={<AboutPage />}/>
         </Routes>
       </div>
     </Router>
