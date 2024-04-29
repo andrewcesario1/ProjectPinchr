@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
+import { doc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import '../Styles/profile.css';
@@ -29,14 +30,20 @@ function Profile() {
             navigate('/signin');
         }).catch(error => console.log(error));
     };
+
+    const deleteUser = async () => {
+        const userRef = doc(db, "users", authUser.uid);
+        await deleteDoc(userRef);
+        userSignOut();
+    };
     
     return (
-        <div className="container">
+        <div>
             <Navbar />
             <div className="profile">
                 <h1>Profile</h1>
                 <p>Email: {authUser?.email}</p>
-                <button onClick={userSignOut}>Delete Account</button>
+                <button onClick={deleteUser}>Delete Account</button>
             </div>
         </div>
     );

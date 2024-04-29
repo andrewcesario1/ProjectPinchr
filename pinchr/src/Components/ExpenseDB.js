@@ -24,7 +24,7 @@ const ExpenseDB  = ({ expenses }) => {
                     {expense.category}
                      <div>
                     <span className="badge rounded-pill bg-success mr-3">
-                    ${expense.amount}
+                    ${parseFloat(expense.amount).toFixed(2)}
                      </span>
                      <TiDelete size="1.5em" onClick={(e) => handleDeleteExpense(expense.id, e)}></TiDelete>
                         </div>
