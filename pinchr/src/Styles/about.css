@@ -1,11 +1,11 @@
 .aboutInfo p{
     text-align: left;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .aboutInfo h1{
     text-align: left;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .about-container {
@@ -17,6 +17,6 @@
 
 .aboutInfo h2{
     text-align: left;
-    margin-left: 20px;
+    margin-left: 30px;
     color: white;
 }
