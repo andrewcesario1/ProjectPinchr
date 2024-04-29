@@ -16,3 +16,23 @@
 body {
     width: 100vw;
 }
+
+h1{
+    color: white;
+}
+
+p{
+    color: white;
+
+}
+
+.profile button{
+    border-radius: 10px;
+    background-color: orangered;
+    color: white;
+}
+
+.profile button:hover{
+    color: red;
+    background-color: grey;
+}

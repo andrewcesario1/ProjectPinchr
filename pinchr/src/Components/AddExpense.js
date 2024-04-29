@@ -4,6 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import { auth, db } from '../firebase';
 import { addDoc, collection, query, where, getDocs, serverTimestamp, updateDoc, increment, doc } from "firebase/firestore";
 
+
 const AddExpense = ({ authUser, expenses }) => {
     const { dispatch } = useContext(AppContext);
     const [selectedCategory, setSelectedCategory] = useState(null);
