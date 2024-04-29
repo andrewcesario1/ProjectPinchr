@@ -18,54 +18,28 @@ export default function Graphs() {
 
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) =>{
-            if(user){
+        const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+            if (user) {
                 setAuthUser(user);
-                fetchData(user);
-            }
-            else{
+                const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+                const unsubscribeFirestore = onSnapshot(q, (querySnapshot) => {
+                    const expensesArray = querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
+                    setExpenses(expensesArray);
+                });
+                return unsubscribeFirestore; // Unsubscribes from Firestore when the effect is cleaned up.
+            } else {
                 setAuthUser(null);
                 setExpenses([]);
-                // setSortedExpenses([{"Food" : 0}, {"Entertainment" : 0}, {"Utilities" : 0}, {"PhoneBill" : 0},
-                //                    {"RentMortgage" : 0}, {"Insurance" : 0}, {"Repairs" : 0}, {"Misc" : 0}])
-            } 
-        });
-            return ()=> unsubscribe();
-    }, []);
-
-        const fetchData = async (user) =>{
-            const q = collection(db, "expenses");
-            const querySnapshot = await getDocs(q);
-            const expensesArray = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-        setExpenses(expensesArray);
-
-        };
-
-        useEffect(() => {
-            const listen = onAuthStateChanged(auth, (user) => {
-                if(user) {
-                    setAuthUser(user);
-                    const q = query(collection(db, "expenses"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
-                    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                        const expensesArray = querySnapshot.docs.map(doc => ({
-                            id: doc.id,
-                            ...doc.data()
-                        }));
-                        setExpenses(expensesArray);
-                    });
-                    return unsubscribe;
-                } else {
-                    navigate('/signin');
-                }
-            });
-    
-            return () => {
-                listen();
+                navigate('/signin');
             }
-        }, [navigate]);
+        });
+        return unsubscribeAuth; // Unsubscribes from Auth when the effect is cleaned up.
+    }, [navigate]);
+    
+
 
         const sortedExpenses = expenses.reduce((acc, expense) => {
             acc[expense.category] = (acc[expense.category] || 0) + expense.amount;

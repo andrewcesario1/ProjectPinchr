@@ -13,8 +13,11 @@ body {
 }
 
 .graphContainer {
-    width: 80%;
-    height: 50%;
+
+    min-width: 1000px;
+    min-height:30%;
+    max-width: 1500px;
+    max-height: 600px;
     margin-left: 100px;
     background-color: white;
     border-radius: 10px;
