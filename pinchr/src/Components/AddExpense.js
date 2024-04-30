@@ -51,7 +51,7 @@ const AddExpense = ({ authUser, expenses }) => {
     };
     
 
-    const categories = ["Food", "Entertainment", "Utilities", "Phone Bill", "Rent/Mortgage", "Insurance", "Repairs", "Miscellaneous"];
+    const categories = ["Food", "Entertainment", "Utilities", "Phone Bill", "Rent/Mortgage", "Insurance", "Repairs", "Miscellaneous", "Supplies"];
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -96,6 +96,7 @@ const AddExpense = ({ authUser, expenses }) => {
             setIsCategorySelected(false);
             setIsPartOfBudget(false);
             setSelectedBudgetPlan("");
+            setSelectedBudgetName("");
         } catch (error) {
             console.error("Error adding expense to Firestore: ", error);
             alert("Failed to add expense. Try again.");
