@@ -48,6 +48,7 @@ function  Login() {
     })
   }
   return (
+    
     <div className ="body">
       <div className="header">
         <h1>Pinchr</h1>
