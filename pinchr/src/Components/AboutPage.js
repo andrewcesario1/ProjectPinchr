@@ -55,13 +55,14 @@ function AboutPage() {
                         of their financial health with ease. <br/>
                 </p>
 
-                <h2>Future features and Update</h2>
-                <p>- Users can input income. <br/>
-                - Users will be able to view expenses in each budget plan. <br/>
-                - Users will be able to search through expenses using key words. <br/>
+                <h1>Pinchr Version 1.0</h1>
+
+                <h2>Future features and Update for version 2.0</h2>
+                <p>- Users can input their income amount. <br/>
+                - Users will be able to view all expenses in each budget plan on the Budget page. <br/>
+                - Users will be able to search through expenses in the expense list by the category name. <br/>
+                - More graphic visual representation will be offered such as bar charts and line charts. <br/>
                 - Most bugs will be fixed throughout the program. <br/>
-
-
                 </p>
             </div>
         </div>
