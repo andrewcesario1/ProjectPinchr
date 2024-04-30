@@ -21,10 +21,19 @@ p{
 
 }
 
+.profile h1{
+    margin-left: 20px;
+}
+
+.profile p{
+    margin-left: 20px;
+}
+
 .profile button{
     border-radius: 10px;
     background-color: orangered;
     color: white;
+    margin-left: 20px;
 }
 
 .profile button:hover{
