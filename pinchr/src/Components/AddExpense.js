@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import {v4 as uuidv4} from 'uuid';
-import { auth, db } from '../firebase';
+import {db } from '../firebase';
 import { addDoc, collection, query, where, getDocs, serverTimestamp, updateDoc, increment, doc } from "firebase/firestore";
 
 
@@ -12,6 +12,7 @@ const AddExpense = ({ authUser, expenses }) => {
     const [isCategorySelected, setIsCategorySelected] = useState(false);
     const [isPartOfBudget, setIsPartOfBudget] = useState(false);
     const [selectedBudgetPlan, setSelectedBudgetPlan] = useState("");
+    const [selectedBudgetName, setSelectedBudgetName] = useState("");
     const [budgetPlans, setBudgetPlans] = useState([]);
     const [description, setDescription] = useState("");
 
@@ -37,8 +38,16 @@ const AddExpense = ({ authUser, expenses }) => {
     const handleBudgetCheckboxChange = () => {
         setIsPartOfBudget(!isPartOfBudget);
         if (isPartOfBudget) {
-            setSelectedBudgetPlan(""); // Clear budget plan if checkbox is unchecked
+            setSelectedBudgetPlan("");
+            setSelectedBudgetName("");
         }
+    };
+
+    const handleBudgetSelection = (e) => {
+        const selectedId = e.target.value;
+        setSelectedBudgetPlan(selectedId);
+        const selectedPlan = budgetPlans.find(plan => plan.id === selectedId);
+        setSelectedBudgetName(selectedPlan ? selectedPlan.budgetName : "");
     };
     
 
@@ -67,7 +76,8 @@ const AddExpense = ({ authUser, expenses }) => {
                 category: selectedCategory,
                 amount: parseFloat(amount),
                 description: finalDescription,
-                budgetPlanId: selectedBudgetPlan, // Firestore field for budget plan ID
+                budgetPlanId: selectedBudgetPlan,
+                budgetPlanName: selectedBudgetName,
                 createdAt: serverTimestamp(),
             });
 
@@ -143,7 +153,7 @@ const AddExpense = ({ authUser, expenses }) => {
                         <select 
                             className="form-control mt-2" 
                             value={selectedBudgetPlan} 
-                            onChange={(e) => setSelectedBudgetPlan(e.target.value)}
+                            onChange={handleBudgetSelection}
                             required>
                             <option value="">Select Budget Plan</option>
                             {budgetPlans.map(plan => (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
-import { getDocs, collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
+import {collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import ExpenseDB from './ExpenseDB';
 import AddExpense from './AddExpense';
 import { AppProvider } from '../Context/AppContext';

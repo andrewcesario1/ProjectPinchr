@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TiDelete, TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import { TiDelete, TiArrowSortedDown, TiArrowSortedUp, TiTag } from "react-icons/ti";
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -14,6 +14,7 @@ const ExpenseItem = ({ expense }) => {
       console.error("Error deleting expense:", error);
     }
   }
+  
 
   return (
     <>
@@ -21,6 +22,7 @@ const ExpenseItem = ({ expense }) => {
         <span onClick={() => setIsDescriptionShown(!isDescriptionShown)}>
           {expense.category}
           {isDescriptionShown ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+          {expense.budgetPlanId && expense.budgetPlanId !== "" && <TiTag style={{ color: 'green', marginLeft: '5px' }} title={expense.budgetPlanName} />}
         </span>
         <div className="expense-actions">
           <span className="badge rounded-pill bg-success mr-2">
