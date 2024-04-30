@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpenseItem from './ExpenseItem'; // Make sure to import ExpenseItem component
+import ExpenseItem from './ExpenseItem';
 
 const ExpenseDB = ({ expenses }) => {
     return (
