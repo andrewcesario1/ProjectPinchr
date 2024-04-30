@@ -141,3 +141,13 @@ img {
   border-color: dodgerblue;
 }
 
+.expense-actions {
+  display: flex;
+  align-items: center;
+}
+
+.date-span {
+  margin: 0 8px; /* Add 8px margin to the left and right */
+  font-size: 0.8em;
+  white-space: nowrap; /* Prevent wrapping on small screens */
+}

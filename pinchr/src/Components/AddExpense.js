@@ -13,6 +13,7 @@ const AddExpense = ({ authUser, expenses }) => {
     const [isPartOfBudget, setIsPartOfBudget] = useState(false);
     const [selectedBudgetPlan, setSelectedBudgetPlan] = useState("");
     const [budgetPlans, setBudgetPlans] = useState([]);
+    const [description, setDescription] = useState("");
 
     useEffect(() => {
         const fetchBudgetPlans = async () => {
@@ -59,11 +60,13 @@ const AddExpense = ({ authUser, expenses }) => {
         });
 
         try {
+            const finalDescription = description.trim() ? description : "No description";
             // Add expense to Firestore
             await addDoc(collection(db, "expenses"), {
                 uid: authUser.uid,
                 category: selectedCategory,
                 amount: parseFloat(amount),
+                description: finalDescription,
                 budgetPlanId: selectedBudgetPlan, // Firestore field for budget plan ID
                 createdAt: serverTimestamp(),
             });
@@ -79,6 +82,7 @@ const AddExpense = ({ authUser, expenses }) => {
             // Clear form fields after submission
             setSelectedCategory(null);
             setAmount("");
+            setDescription("");
             setIsCategorySelected(false);
             setIsPartOfBudget(false);
             setSelectedBudgetPlan("");
@@ -118,6 +122,17 @@ const AddExpense = ({ authUser, expenses }) => {
                     </input>
                 </div>
                 
+                <div className="col-sm-4 mb-1">
+                    <label htmlFor="description">Description (optional)</label>
+                    <input type="text"
+                        className="form-control" 
+                        id="description"
+                        placeholder="Add a description..."
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}>
+                    </input>
+                </div>
+
                 <div className="isBudget col-sm-3">
                 <input type="checkbox" 
                 checked={isPartOfBudget} 
