@@ -1,9 +1,6 @@
 /* budget.css */
 
 .budgetPage {
-    background: linear-gradient( rgb(35, 35, 255), rgb(6, 6, 70));
-    min-height: 900px;
-    width: 100%;
     text-align: center;
 }
 
