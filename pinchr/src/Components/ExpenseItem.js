@@ -34,7 +34,7 @@ const ExpenseItem = ({ expense }) => {
       </li>
       {isDescriptionShown && (
         <li className="list-group-item">
-          <p className="mb-0" style={{ color: '#757575', fontSize: '0.9em' }}>Description: {expense.description || "No description available"}</p>
+          <p className="mb-0" style={{ color: '#757575', fontSize: '0.9em' }}>Description: {expense.description}</p>
         </li>
       )}
     </>
