@@ -7,8 +7,12 @@
 
 body {
   background: linear-gradient( rgb(35, 35, 255), rgb(6, 6, 70));
-  height: 100vh;
   color: blue;
+  height: 100%;;
+}
+
+html { 
+  height: 100%;;
 }
 
 img {

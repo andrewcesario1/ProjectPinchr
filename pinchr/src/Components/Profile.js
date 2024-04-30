@@ -42,6 +42,7 @@ function Profile() {
             <Navbar />
             <div className="profile">
                 <h1>Profile</h1>
+                <p>Name: {authUser?.name}</p>
                 <p>Email: {authUser?.email}</p>
                 <button onClick={deleteUser}>Delete Account</button>
             </div>

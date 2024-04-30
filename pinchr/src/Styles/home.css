@@ -1,7 +1,5 @@
 .page {
     background-color: white;
-    height: 900px;
-    width: 100%;
     display: inline-block;
     text-align: center;
 }
@@ -22,8 +20,6 @@
     border-left: 5px solid blue;
     background-color: dodgerblue;
     color: black;
-    width: 500px;
-    height: 300px;
     text-align: center;
     display: inline-block;
     vertical-align: middle;
