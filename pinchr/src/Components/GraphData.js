@@ -14,8 +14,25 @@ export default function Graphs() {
     const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
     const [expenses, setExpenses] = useState([]);
+    const [budgetPlans, setBudgetPlans] = useState([]);
+    const [selectedBudgetPlan, setSelectedBudgetPlan] = useState("");
+    const [selectedGraph, setSelectedGraph] = useState("");
+    const [budgetExpenses, setBudgetExpenses] = useState([]);
+    const [sortedExpenses, setSortedExpenses] = useState([]);
 
 
+    useEffect(() => {
+        const fetchBudgetPlans = async () => {
+            if (authUser) {
+                const q = query(collection(db, "budgets"), where("uid", "==", authUser.uid));
+                const querySnapshot = await getDocs(q);
+                const fetchedPlans = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setBudgetPlans(fetchedPlans);
+            }
+        };
+
+        fetchBudgetPlans();
+    }, [authUser]);
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -41,12 +58,24 @@ export default function Graphs() {
     
 
 
-        const sortedExpenses = expenses.reduce((acc, expense) => {
-            acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
+        
+        const onSubmit = async (e) => {
+            e.preventDefault();
+            const filteredExpenses = expenses.filter(expense => 
+                expense.budgetPlanId === selectedBudgetPlan || 
+                (expense.budgetPlanId === "" && selectedBudgetPlan === "none")
+            );
+        
+            const sortedExpensesData = filteredExpenses.reduce((acc, expense) => {
+                acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
+                return acc;
+            }, {});
+        
+            setBudgetExpenses(filteredExpenses);
+            setSortedExpenses(sortedExpensesData);
+        };
 
-            return acc;
-        }, {});
-        console.log(sortedExpenses);
+
         const expenseData = {
             labels: Object.keys(sortedExpenses),
             datasets: [
@@ -77,29 +106,64 @@ export default function Graphs() {
                 }
             ]
         }
+
         return (
-            <div className='pageContainer'>
-                <Navbar />
-                <h1>Take a look at your expenses!</h1>
-                <div className='graphData'>
-                    <p className='graphDescription'>Amount Spent per Category</p>
+            <form onSubmit={onSubmit}>
+                <div className='pageContainer'>
+                    <Navbar />
+                    <h1>Take a look at your expenses!</h1>
+                    <div>
+                        <select 
+                            className='' 
+                            value={selectedBudgetPlan} 
+                            onChange={(e) => setSelectedBudgetPlan(e.target.value)}
+                            required>
+                            <option value="">Select Budget Plan</option>
+                            {budgetPlans.map(plan => (
+                                <option key={plan.id} value={plan.id}>{plan.budgetName}</option>
+                            ))}
+                            <option value="none">None</option>
+                        </select>
+                        <select
+                            className=''
+                            value={selectedGraph}
+                            onChange={(e) => setSelectedGraph(e.target.value)}
+                            required>
+                            <option value="">Select Graph</option>
+                            <option value='Doughnut'>Doughnut</option>
+                            <option value='Pie'>Pie</option>
+                            <option value='Bar'>Bar</option>
+                        </select>
+                        <button type="submit"
+                        disabled={!selectedBudgetPlan || !selectedGraph}>
+                            Display
+                        </button>
+                    </div>
+                    <div className='graphData'>
+                        <p className='graphDescription'>Amount Spent per Category</p>
+                    </div>
+                    <div className="graphContainer">
+                        <Doughnut
+                            data={expenseData}
+                            options={{
+                                plugins: {
+                                title:{
+                                    display:true
+                                },
+                                legend:{
+                                    display:true,
+                                    position:'right',
+                                    labels: {
+                                        font: {
+                                            size: 16
+                                        }
+                                    }
+                                }   
+                            }
+                        }}
+                        />
+                    </div>
                 </div>
-                <div className="graphContainer">
-                    <Doughnut
-                        data={expenseData}
-                        options={{
-                            plugins: {
-                            title:{
-                                display:true
-                            },
-                            legend:{
-                                display:true,
-                                position:'right'
-                            }   
-                        }
-                    }}
-                    />
-                </div>
-            </div>
+            </form>
         )
 }
