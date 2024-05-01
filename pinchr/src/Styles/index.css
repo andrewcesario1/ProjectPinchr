@@ -124,7 +124,7 @@ img {
 }
 
 .loginError {
-  height: 30px;
+  height: 50px;
   width: 500px;
   color: red;
   text-align: center;
