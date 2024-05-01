@@ -146,7 +146,7 @@ export default function Graphs() {
                     <h1>Take a look at your expenses!</h1>
                     <div>
                         <select 
-                            className='' 
+                            className='budgetSelect' 
                             value={selectedBudgetPlan} 
                             onChange={(e) => setSelectedBudgetPlan(e.target.value)}
                             required>
@@ -157,7 +157,7 @@ export default function Graphs() {
                             <option value="none">None</option>
                         </select>
                         <select
-                            className=''
+                            className='graphSelect'
                             value={selectedGraph}
                             onChange={(e) => setSelectedGraph(e.target.value)}
                             required>
@@ -166,7 +166,7 @@ export default function Graphs() {
                             <option value='Pie'>Pie</option>
                             <option value='Bar'>Bar</option>
                         </select>
-                        <button type="submit" className='btn btn-success' style={{marginLeft: '10px'}}
+                        <button type="submit" className='btn btn-warning' style={{marginLeft: '10px'}}
                         disabled={!selectedBudgetPlan || !selectedGraph}>
                             Display
                         </button>
