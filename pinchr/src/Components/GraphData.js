@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getDocs, collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import Navbar from './Navbar';
 import "../Styles/graph.css";
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 import {ArcElement, Legend, Tooltip} from 'chart.js'
 ChartJS.register(ArcElement, Legend, Tooltip);
@@ -75,7 +75,7 @@ export default function Graphs() {
             setSortedExpenses(sortedExpensesData);
         };
 
-
+    
         const expenseData = {
             labels: Object.keys(sortedExpenses),
             datasets: [
@@ -107,6 +107,38 @@ export default function Graphs() {
             ]
         }
 
+        const graphOptions = {
+                plugins: {
+                title:{
+                    display:true
+                },
+                legend:{
+                    display:true,
+                    position:'right',
+                    labels: {
+                        font: {
+                            size: 16
+                        }
+                    }
+                }   
+            }
+        };
+
+        let GraphComponent;
+        switch (selectedGraph) {
+            case 'Doughnut':
+                GraphComponent = <Doughnut data={expenseData} options={graphOptions} />;
+                break;
+            case 'Bar':
+                GraphComponent = <Bar data={expenseData} options={graphOptions} />;
+                break;
+            case 'Pie':
+                GraphComponent = <Pie data={expenseData} options={graphOptions} />;
+                break;
+            default:
+                GraphComponent = null;
+        }
+    
         return (
             <form onSubmit={onSubmit}>
                 <div className='pageContainer'>
@@ -143,25 +175,7 @@ export default function Graphs() {
                         <p className='graphDescription'>Amount Spent per Category</p>
                     </div>
                     <div className="graphContainer">
-                        <Doughnut
-                            data={expenseData}
-                            options={{
-                                plugins: {
-                                title:{
-                                    display:true
-                                },
-                                legend:{
-                                    display:true,
-                                    position:'right',
-                                    labels: {
-                                        font: {
-                                            size: 16
-                                        }
-                                    }
-                                }   
-                            }
-                        }}
-                        />
+                        {GraphComponent}
                     </div>
                 </div>
             </form>
