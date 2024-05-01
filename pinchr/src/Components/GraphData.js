@@ -166,7 +166,7 @@ export default function Graphs() {
                             <option value='Pie'>Pie</option>
                             <option value='Bar'>Bar</option>
                         </select>
-                        <button type="submit"
+                        <button type="submit" className='btn btn-success' style={{marginLeft: '10px'}}
                         disabled={!selectedBudgetPlan || !selectedGraph}>
                             Display
                         </button>
