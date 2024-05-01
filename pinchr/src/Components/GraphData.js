@@ -144,7 +144,7 @@ export default function Graphs() {
                 <div className='pageContainer'>
                     <Navbar />
                     <h1>Take a look at your expenses!</h1>
-                    <div>
+                    <div className='selectDiv'>
                         <select 
                             className='budgetSelect' 
                             value={selectedBudgetPlan} 
